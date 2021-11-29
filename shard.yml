@@ -1,0 +1,16 @@
+name: comandante-zstd
+version: 0.1.0
+
+authors:
+  - Tarek Ghaleb <tghaleb@users.noreply.github.com>
+
+crystal: 1.2.0
+
+dependencies:
+  comandante:
+    git: https://github.com/tghaleb/comandante.git
+
+  zstd:
+    git: https://github.com/didactic-drunk/zstd.cr.git
+
+license: MIT
