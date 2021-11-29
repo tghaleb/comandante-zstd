@@ -1,4 +1,4 @@
-# Welcome to Comandante/Zstd
+# Comandante/Zstd
 
 An add-on for Comandante to allow for zstd reading/writing.
 
