@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="None">
+    
+    
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Comandante-Zstd</title>
+    <link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="./css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/highlight.css">
+    <link href="assets/_mkdocstrings.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap-3.3.7.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
+    
+      <script src="./js/elasticlunr.min.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '.';
+      var is_top_frame = (window === window.parent);
+        
+        var pageToc = [
+          {title: "Comandante/Zstd", url: "#_top", children: [
+              {title: "Installation", url: "#installation" },
+              {title: "Usage", url: "#usage" },
+              {title: "Helper", url: "#Comandante::Helper" },
+          ]},
+        ];
+
+    </script>
+    <script src="./js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<nav class="navbar wm-page-top-frame">
+  <div class="container-fluid wm-top-container">
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <form class="dropdown wm-vcentered" id="wm-search-form" action="./search.html">
+        
+        <button id="wm-search-show" class="btn btn-sm btn-default" type="submit"
+          ><i class="fa fa-search" aria-hidden="true"></i></button>
+
+        <div class="input-group input-group-sm wm-top-search">
+          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="Search" autocomplete="off">
+          <span class="input-group-btn" role="search">
+            
+            <button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
+            <ul id="mkdocs-search-results" class="dropdown-menu dropdown-menu-right"></ul>
+            <button id="wm-search-go" class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="wm-top-tool wm-vcenter pull-right wm-small-left">
+      <button id="wm-toc-button" type="button" class="btn btn-sm btn-default wm-vcentered"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+    </div>
+
+    
+    
+
+    
+    <a href="" class="wm-top-brand wm-top-link wm-vcenter">
+      
+      <div class="wm-top-title">
+        Comandante-Zstd<br>
+        
+      </div>
+    </a>
+  </div>
+</nav>
+
+  <div id="main-content" class="wm-page-top-frame">
+    
+<nav class="wm-toc-pane">
+  
+  <ul class="wm-toctree">
+        <li class="wm-toc-li wm-toc-lev1 "><a href="" class="wm-article-link wm-toc-text">Home</a>
+</li>
+  </ul>
+</nav>
+
+    <div class="wm-content-pane">
+      <iframe class="wm-article" name="article"></iframe>
+    </div>
+  </div>
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+
+    <h1 id="comandantezstd">Comandante/Zstd</h1>
+<p>An add-on for Comandante to allow for zstd reading/writing.</p>
+<h2 id="installation">Installation</h2>
+<ol>
+<li>Add the dependency to your <code>shard.yml</code>:</li>
+</ol>
+<pre><code class="language-yaml">dependencies:
+  comandante-zstd:
+    github: tghaleb/comandante-zstd
+</code></pre>
+<ol>
+<li>Run <code>shards install</code></li>
+</ol>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-crystal">require &quot;comandante-zstd&quot;
+</code></pre>
+<p>This is actually a wrapper around <a href="https://github.com/didactic-drunk/zstd.cr">zstd.cr</a>. </p>
+<p>To write a string, or any type that has a <code>to_slice</code> method to file in
+one go,</p>
+<pre><code class="language-crystal">str = &quot;test&quot;
+Helper.write_zstd(str, file)
+</code></pre>
+<p>To Write Strings to a file using a block, and setting compressing level,</p>
+<pre><code class="language-crystal">Helper.write_zstd(file, level: 19) do |io|
+  io.print &quot;test1&quot;
+  io.print &quot;test2&quot;
+end
+</code></pre>
+<p>To read a file into a string,</p>
+<pre><code class="language-crystal">x = Helper.read_zstd(file)
+</code></pre>
+<p>To read line by line</p>
+<pre><code class="language-crystal">results = Array(String).new
+Helper.read_zstd(file) do |x|
+  results &lt;&lt; x
+end
+</code></pre>
+
+
+<div class="doc doc-object doc-type module">
+<h2 id="Comandante::Helper" class="doc doc-heading">module <code>Comandante::Helper</code>
+</h2>
+  <div class="doc doc-contents first">
+<p>Some helper functions</p>
+      <div class="doc doc-children">
+
+
+
+<h3 id="Comandante::Helper-class-methods">Class methods</h3>
+
+<div class="doc doc-object doc-method doc-class_method">
+<h4 id="Comandante::Helper.read_zstd(path)" class="doc doc-heading">    <code>
+      .read_zstd<span style="font-weight: normal"><code class="highlight language-crystal"><span class="p">(</span><span class="n">path</span><span class="p">)</span></code></span>
+    </code>
+</h4>
+  <div class="doc doc-contents ">
+<p>Reads zstd file into a string</p>  </div>
+
+    <a class="doc-source-link" href="https://github.com/tghaleb/comandante-zstd/blob/399b066f73c80c1f3aff4b2a84ff8ca4819bbeb2/src/comandante/zstd.cr#L32">View source</a>
+</div>
+
+<div class="doc doc-object doc-method doc-class_method">
+<h4 id="Comandante::Helper.read_zstd(path,&amp;)" class="doc doc-heading">    <code>
+      .read_zstd<span style="font-weight: normal"><code class="highlight language-crystal"><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">:</span> <span class="n">Nil</span></code></span>
+    </code>
+</h4>
+  <div class="doc doc-contents ">
+<p>Reads zstd line by line</p>
+<pre><code>read_zstd(path) { |line| puts line }
+</code></pre>  </div>
+
+    <a class="doc-source-link" href="https://github.com/tghaleb/comandante-zstd/blob/399b066f73c80c1f3aff4b2a84ff8ca4819bbeb2/src/comandante/zstd.cr#L48">View source</a>
+</div>
+
+<div class="doc doc-object doc-method doc-class_method">
+<h4 id="Comandante::Helper.write_zstd(obj,path,level)" class="doc doc-heading">    <code>
+      .write_zstd<span style="font-weight: normal"><code class="highlight language-crystal"><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="p">:</span> <span class="n">Nil</span></code></span>
+    </code>
+</h4>
+  <div class="doc doc-contents ">
+<p>Reads zstd file into a string</p>  </div>
+
+    <a class="doc-source-link" href="https://github.com/tghaleb/comandante-zstd/blob/399b066f73c80c1f3aff4b2a84ff8ca4819bbeb2/src/comandante/zstd.cr#L9">View source</a>
+</div>
+
+<div class="doc doc-object doc-method doc-class_method">
+<h4 id="Comandante::Helper.write_zstd(path,level,&amp;)" class="doc doc-heading">    <code>
+      .write_zstd<span style="font-weight: normal"><code class="highlight language-crystal"><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">:</span> <span class="n">Nil</span></code></span>
+    </code>
+</h4>
+  <div class="doc doc-contents ">
+<p>Reads zstd file line by line</p>  </div>
+
+    <a class="doc-source-link" href="https://github.com/tghaleb/comandante-zstd/blob/399b066f73c80c1f3aff4b2a84ff8ca4819bbeb2/src/comandante/zstd.cr#L23">View source</a>
+</div>      </div>
+  </div>
+
+</div>
+
+  <br>
+    
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
+<!--
+MkDocs version : 1.2.3
+Build Date UTC : 2021-12-01 16:45:28.096499+00:00
+-->
